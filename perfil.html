@@ -54,7 +54,7 @@
 
     </style>
 </head>
-<body  id="perfil-body" onload="carregarperfil(usuarioID)">
+<body  id="perfil-body">
     <header id ="perfil-header">
         <h1 id="perfil-nome"></h1>
         <button id="btn-modo" onclick="mudartema()">☀️</button>
@@ -66,13 +66,13 @@
 
 
         <section id="perfil-dados">
-            <p id="editar">editar perfil</p>
+            <p id="editar">editar perfil / sair</p>
             <!--foto do perfil-->
             <img  src="perfil.png" id="img-perfil" alt="Foto de Perfil" width="150" height="150">
-            <h2>perfil</h2>
+            <h2 id="perfil-titulo">perfil</h2>
             <p><strong>Email:</strong> <span id="perfil-email"></span></p>
             <p><strong>idade:</strong> <span id="perfil-idade"></span></p>
-            <p><strong>nome:</strong> <span id="perfil-nome"></span></p>
+          
         </section>
     </main>
 

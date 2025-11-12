@@ -21,21 +21,30 @@ let btnLogin = document.getElementById("btn-login")
  //let nomePerfil = document.getElementById("perfil-nome")
  let idadePerfil = document.getElementById("perfil-idade")
  let emailPerfil = document.getElementById("perfil-email")
+ let nomePerfil = document.querySelector("h2")
+ 
 
+ let usuariologado = null
 // Função para login
 function login() {
- const objdados = JSON.parse(localStorage.getItem("usuarioID"))
+ 
 
-let id = usuarioID.value
+
+console.log(usuarioID.value)
  for(let i=0; i < localStorage.length; i++){
    const chave = localStorage.key(i)
+   let id = usuarioID.value
+   let valor = localStorage.getItem(chave)
+    let objUsuario = JSON.parse(valor)
+   console.log( typeof objUsuario)
+   console.log(objUsuario.nome)
+   
 
-   const valor = localStorage.getItem(chave)
-   console.log(valor)
-
-  if(id === valor){
+  if(id === objUsuario.nome){
+    
+    sessionStorage.setItem("usuarioLogado", JSON.stringify(objUsuario));
     window.location.href= "perfil.html"
-    localStorage.setItem("usuarioID", id)
+    
     return
   }else{
     alert("Usuário não encontrado. Por favor, verifique seu ID ou cadastre-se como novo usuário.")
@@ -82,13 +91,47 @@ function cadastrar(){
 }
 
  //teste para mostrar nome no perfil
-function carregarperfil(){
- 
-  //nomePerfil.innerHTML = nome
-  let perfilnome = document.getElementById("perfil-nome")
-  perfilnome.textContent = localStorage.getItem("usuarioID")+"\n seja bem vindo!"
-  //pegando dados do perfil
+// JavaScript em perfil.html
+document.addEventListener("DOMContentLoaded", () => {
+
+    //
+    let imgPerfil = document.getElementById("img-perfil")
+    let usuarioLogadoString = sessionStorage.getItem("usuarioLogado");
+    let fotoperfil = sessionStorage.getItem("usuarioperfil")
+   
+    if (usuarioLogadoString) {
+       
+        let objLogado = JSON.parse(usuarioLogadoString);
+        
+       
+        idadePerfil.textContent = `${objLogado.idade}`;
+        emailPerfil.textContent = ` ${objLogado.email}`;
+        nomePerfil.textContent = `${objLogado.nome}`;
+        headerPerfil.querySelector("h1").textContent = "Seja bem vindo!\n" + objLogado.nome;
+
+       
+      
+        
+       
+    } else {
+        login.
+        console.error("Nenhum usuário logado encontrado.");
+        
+    }
+    let avatarSalvo = sessionStorage.getItem("avatarEscolhido");
+    if (avatarSalvo) {
+      
+        imgPerfil.src = avatarSalvo;
+    } else {
+        
+        imgPerfil.src = "perfil.png"; 
 }
+ if(fotoperfil){
+      let fotoperfilObj = JSON.parse(fotoperfil)
+      imgPerfil.src = fotoperfilObj
+      console.log(fotoperfilObj);
+    }
+})
 
 
 //função para mudar tema
@@ -120,5 +163,30 @@ function mudartema(){
    
 }
 editar.addEventListener("click",()=>{
+    let sair = confirm("Deseja sair do perfil?")
+    if(sair){
+      sessionStorage.removeItem("usuarioLogado")
+      window.location.href= "index.html"
+    }else{
+       let opçao = prompt("Digite a opção desejada:\n 1 - avatar masculino \n2 - avatar feminino \n3 - avatar neutro  \n4 - avatar infantil")
+        let novoAvatar = ""
+        switch(opçao){
+          case "1":
+            novoAvatar = "masculino.png"
 
+            break
+          case "2":
+            novoAvatar = "feminino.png"
+            break
+          case "3":
+            novoAvatar = "perfil.png"
+            break
+          case "4":
+            novoAvatar = "infantil.png"
+            break
+        }
+        imgPerfil.src = novoAvatar
+        sessionStorage.setItem("usuarioperfil", JSON.stringify(novoAvatar))
+    }
+    
 })
