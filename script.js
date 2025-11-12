@@ -46,8 +46,6 @@ console.log(usuarioID.value)
     window.location.href= "perfil.html"
     
     return
-  }else{
-    alert("Usuário não encontrado. Por favor, verifique seu ID ou cadastre-se como novo usuário.")
   }
 
 }
@@ -97,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //
     let imgPerfil = document.getElementById("img-perfil")
     let usuarioLogadoString = sessionStorage.getItem("usuarioLogado");
-    let fotoperfil = sessionStorage.getItem("usuarioperfil")
+    let fotoperfil = localStorage.getItem("usuarioperfil")
    
     if (usuarioLogadoString) {
        
@@ -118,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Nenhum usuário logado encontrado.");
         
     }
-    let avatarSalvo = sessionStorage.getItem("avatarEscolhido");
+    let avatarSalvo = localStorage.getItem("usuarioperfil");
     if (avatarSalvo) {
       
         imgPerfil.src = avatarSalvo;
@@ -126,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         imgPerfil.src = "perfil.png"; 
 }
- if(fotoperfil){
+    if(fotoperfil){
       let fotoperfilObj = JSON.parse(fotoperfil)
       imgPerfil.src = fotoperfilObj
       console.log(fotoperfilObj);
@@ -141,7 +139,7 @@ function mudartema(){
     
    if( valorbtn ==="☀️"){
     //alterando cores para modo escuro
-      bodyPerfil.style.backgroundColor= "#121212"
+      bodyPerfil.style.backgroundImage= 'url("backgroud-dark.jpeg")'
       sectionPerfil.style.backgroundColor = "#1F1F1F"
       headerPerfil.style.backgroundColor = "#1F1F1F"
      
@@ -155,19 +153,24 @@ function mudartema(){
       headerPerfil.style.backgroundColor = "#fff"
       bodyPerfil.style.color= "#333"
       bodyPerfil.style.transition= "all 0.5s"
-      bodyPerfil.style.backgroundColor= "#f0f0f0"
+      bodyPerfil.style.backgroundImage= "url('backgroud-claro.jpeg')"
 
 
     }
     temaAtual = btntema.innerHTML
    
 }
+//
+//teste 
+
 editar.addEventListener("click",()=>{
-    let sair = confirm("Deseja sair do perfil?")
+   let opçao = prompt("Digite a opção desejada:\n 1 - Sair do perfil \n2 - Mudar avatar")
+    let sair = opçao === "1"
+    let mudarAvatar = opçao === "2"
     if(sair){
       sessionStorage.removeItem("usuarioLogado")
       window.location.href= "index.html"
-    }else{
+    }else if(mudarAvatar){
        let opçao = prompt("Digite a opção desejada:\n 1 - avatar masculino \n2 - avatar feminino \n3 - avatar neutro  \n4 - avatar infantil")
         let novoAvatar = ""
         switch(opçao){
@@ -186,7 +189,7 @@ editar.addEventListener("click",()=>{
             break
         }
         imgPerfil.src = novoAvatar
-        sessionStorage.setItem("usuarioperfil", JSON.stringify(novoAvatar))
+        localStorage.setItem("usuarioperfil", JSON.stringify(novoAvatar))
     }
     
 })
