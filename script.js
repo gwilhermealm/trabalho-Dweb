@@ -8,7 +8,7 @@ let btnLogin = document.getElementById("btn-login")
  let nvnome = document.getElementById("nvnome")
  let nvidade = document.getElementById("nvidade")
  let nvemail = document.getElementById("nvemail")
- let usuario
+ 
  //dados do perfil
  //pegando dados do perfil
  let bodyPerfil = document.getElementsByTagName("body")[0]
@@ -18,21 +18,31 @@ let btnLogin = document.getElementById("btn-login")
  let sectionPerfil = document.getElementById("perfil-dados")
  let editar = document.getElementById("editar")
  let imgPerfil = document.getElementById("img-perfil")
- let nomePerfil = document.getElementById("perfil-nome")
+ //let nomePerfil = document.getElementById("perfil-nome")
  let idadePerfil = document.getElementById("perfil-idade")
  let emailPerfil = document.getElementById("perfil-email")
- 
+
 // Função para login
 function login() {
-    let id = usuarioID.value
-    let nomeArmazenado = localStorage.getItem()
-    if (id === nomeArmazenado) {
-       // alert(`Bem-vindo de volta, ${nomeArmazenado}!`)
-        // Redirecionar para a página do perfil
-        window.location.href = "perfil.html"
-    } else {
-        alert("ID não encontrado. Por favor, verifique e tente novamente.")
-    }
+ const objdados = JSON.parse(localStorage.getItem("usuarioID"))
+
+let id = usuarioID.value
+ for(let i=0; i < localStorage.length; i++){
+   const chave = localStorage.key(i)
+
+   const valor = localStorage.getItem(chave)
+   console.log(valor)
+
+  if(id === valor){
+    window.location.href= "perfil.html"
+    localStorage.setItem("usuarioID", id)
+    return
+  }else{
+    alert("Usuário não encontrado. Por favor, verifique seu ID ou cadastre-se como novo usuário.")
+  }
+
+}
+ 
 
 }
 //funçao cadastrar
@@ -46,40 +56,38 @@ function cadastrar(){
        alert("Por favor, insira um email válido.")
        return
   }else{
-       0
-       // Validação passou, prosseguir com o cadastro
-       let nome = nvnome.value
-       let idade = nvidade.value
-       let email = nvemail.value
-         localStorage.setItem( nome, nome)
-         return usuario = nome
-         
+       let contar = localStorage.getItem("contador") ? parseInt(localStorage.getItem("contador")) : 1
+        // Validação passou, prosseguir com o cadastro
+        let objUsuario = {
+          nome: nvnome.value,
+          idade: nvidade.value,
+          email: nvemail.value
+
+        }
+        //armazenando dados no local storage
+        let usuarioJSON = JSON.stringify(objUsuario)
+        localStorage.setItem("usuario_"+contar, usuarioJSON)
+
+        
+      
+        contar++
+        localStorage.setItem("contador", contar)
+     //limpar campos
+        nvnome.value =""  
+        nvidade.value =""  
+        nvemail.value =""
+       
+
  }
 }
-//btnNovoUsuario.addEventListener("click",()=>{
-//    //validaçao dos campos
-//    if(nvnome.value ==="" || nvidade.value ==="" || nvemail.value ===""){
-//        alert("Por favor, preencha todos os campos antes de cadastrar.")
-//        return
-//    }else if(isNaN(nvidade.value) || nvidade.value <=0){
-//        alert("Por favor, insira uma idade válida.")
-//        return
-//    }else if(!nvemail.value.includes("@")){
-//        alert("Por favor, insira um email válido.")
-//        return
-//    }else{
-//        // Validação passou, prosseguir com o cadastro
-//       
-//       console.log("Cadastro realizado com sucesso!")
-//     
-//    }
-//  
-//})
 
  //teste para mostrar nome no perfil
 function carregarperfil(){
-    let perfilNome = document.getElementById("perfil-nome")
-    perfilNome.textContent = localStorage.getItem("nome")+"\nseja bem vindo ao seu perfil!"
+ 
+  //nomePerfil.innerHTML = nome
+  let perfilnome = document.getElementById("perfil-nome")
+  perfilnome.textContent = localStorage.getItem("usuarioID")+"\n seja bem vindo!"
+  //pegando dados do perfil
 }
 
 
