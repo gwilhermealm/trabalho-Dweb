@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>seu perfil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+
+        }
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+           
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-top: 0;
+            padding: 20px;
+            background-color:#fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+        section#perfil-dados {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #editar {
+            color: green;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        #btn-modo {
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body onload="carregarperfil()" id="perfil-body">
+    <header id ="perfil-header">
+        <h1 id="perfil-nome"></h1>
+        <button id="btn-modo" onclick="mudartema()">☀️</button>
+    </header>
+    <main>
+
+
+
+
+
+        <section id="perfil-dados">
+            <p id="editar">editar perfil</p>
+            <!--foto do perfil-->
+            <img  src="perfil.png" id="img-perfil" alt="Foto de Perfil" width="150" height="150">
+            <h2>perfil</h2>
+            <p><strong>Email:</strong> <span id="perfil-email"></span></p>
+            <p><strong>idade:</strong> <span id="perfil-idade"></span></p>
+            <p><strong>nome:</strong> <span id="perfil-nome"></span></p>
+        </section>
+    </main>
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
