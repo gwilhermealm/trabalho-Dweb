@@ -140,7 +140,7 @@ function mudartema(){
     
    if( valorbtn ==="☀️"){
     //alterando cores para modo escuro
-      bodyPerfil.style.backgroundImage= "url('perfil.1.png')"
+      bodyPerfil.style.backgroundImage= "url('fundo-preto.png')"
       sectionPerfil.style.backgroundColor = "#060b18ff"
       headerPerfil.style.backgroundColor = "#060b18ff"
      
@@ -148,7 +148,7 @@ function mudartema(){
       btntema.innerHTML="🌙"
 
     }else{
-      bodyPerfil.style.backgroundImage= "url('fundo.png')"
+      bodyPerfil.style.backgroundImage= "url('fundo-branco.png')"
       btntema.innerHTML="☀️"
       sectionPerfil.style.backgroundColor = "#fff"
       headerPerfil.style.backgroundColor = "#fff"
