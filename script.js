@@ -140,7 +140,7 @@ function mudartema(){
     
    if( valorbtn ==="☀️"){
     //alterando cores para modo escuro
-      bodyPerfil.style.backgroundImage= "url('Perfil.1.png')"
+      bodyPerfil.style.backgroundImage= "url('perfil.1.png')"
       sectionPerfil.style.backgroundColor = "#060b18ff"
       headerPerfil.style.backgroundColor = "#060b18ff"
      
@@ -148,7 +148,7 @@ function mudartema(){
       btntema.innerHTML="🌙"
 
     }else{
-      bodyPerfil.style.backgroundImage= "url('Fundo.png')"
+      bodyPerfil.style.backgroundImage= "url('fundo.png')"
       btntema.innerHTML="☀️"
       sectionPerfil.style.backgroundColor = "#fff"
       headerPerfil.style.backgroundColor = "#fff"
@@ -167,17 +167,17 @@ editar.addEventListener("click",()=>{
         let novoAvatar = ""
         switch(opcao){
           case "1":
-            novoAvatar = "Masculino.png"
+            novoAvatar = "masculino.png";
 
             break
           case "2":
-            novoAvatar = "Feminino.png"
+            novoAvatar = "feminino.png"
             break
           case "3":
-            novoAvatar = "Perfil.1.png"
+            novoAvatar = "perfil.png"
             break
           case "4":
-            novoAvatar = "Infantil.png"
+            novoAvatar = "infantil.png"
             break
         }
         imgPerfil.src = novoAvatar
