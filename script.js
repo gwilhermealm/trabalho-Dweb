@@ -33,25 +33,33 @@ let encontrado = false
 
 console.log(usuarioID.value)
  for(let i=0; i < localStorage.length; i++){
-   const chave = localStorage.key(i)
+   let chave = localStorage.key(i)
    let id = usuarioID.value
-   let valor = localStorage.getItem(chave)
-    let objUsuario = JSON.parse(valor)
-   console.log( typeof objUsuario)
-   console.log(objUsuario.nome)
+  
+  // let valor = localStorage.getItem(chave)
+    //let objUsuario = JSON.parse(valor)
+  // console.log( typeof objUsuario)
+   //console.log(objUsuario.nome)
    
 
-  if(id === objUsuario.nome){
-    
-    sessionStorage.setItem("usuarioLogado", JSON.stringify(objUsuario));
-    window.location.href= "perfil.html"
-    encontrado = true
-    return
+  if(!chave.startsWith("usuario_")){
+      continue;
   }
+  let valor = localStorage.getItem(chave)
+  let objUsuario = JSON.parse(valor)
+    if(objUsuario.nome === id){
+
+      sessionStorage.setItem("usuarioLogado", JSON.stringify(objUsuario))
+      sessionStorage.setItem("usuarioKey", chave);
+      window.location.href = "perfil.html"
+      encontrado = true
+      break
+
+    }
 }
-  if  (encontrado == false){
- alert("Usuário não encontrado. Por favor, verifique o nome de usuário ou cadastre-se")
-  }
+if(!encontrado){
+  alert("Usuário não encontrado. Por favor, verifique o nome de usuário ou cadastre-se.")
+}
 }
 //funçao cadastrar
 function cadastrar(){
@@ -69,7 +77,8 @@ function cadastrar(){
         let objUsuario = {
           nome: nvnome.value,
           idade: nvidade.value,
-          email: nvemail.value
+          email: nvemail.value,
+          avatar: "perfil.png"//alteraçao
 
         }
         //armazenando dados no local storage
@@ -96,7 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //
     let imgPerfil = document.getElementById("img-perfil")
     let usuarioLogadoString = sessionStorage.getItem("usuarioLogado");
-    let fotoperfil = sessionStorage.getItem("usuarioperfil")
+    //let fotoperfil = sessionStorage.getItem("usuarioperfil")
+
    
     if (usuarioLogadoString) {
        
@@ -107,7 +117,11 @@ document.addEventListener("DOMContentLoaded", () => {
         emailPerfil.textContent = `${objLogado.email}`;
         nomePerfil.textContent = `${objLogado.nome}`;
         headerPerfil.querySelector("h1").textContent = "Seja bem vindo ao seu Perfil!\n" + objLogado.nome;
-
+        if(objLogado.avatar){
+          imgPerfil.src = objLogado.avatar
+        }else{
+          imgPerfil.src = "perfil.png"
+        }
        
       
         
@@ -117,14 +131,20 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Nenhum usuário logado encontrado.");
         
     }
-    let avatarSalvo = sessionStorage.getItem("avatarEscolhido");
-    if (avatarSalvo) {
+    //let avatarSalvo = sessionStorage.getItem("avatarEscolhido");
+   // if (avatarSalvo) {
       
-        imgPerfil.src = avatarSalvo;
-    } else {
+      //  imgPerfil.src = avatarSalvo;
+   // } else {
         
-        imgPerfil.src = "perfil.png"; 
+     //   imgPerfil.src = "perfil.png"; 
 }
+ );
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+    let imgPerfil = document.getElementById("img-perfil")
+    let fotoperfil = sessionStorage.getItem("usuarioperfil")
  if(fotoperfil){
       let fotoperfilObj = JSON.parse(fotoperfil)
       imgPerfil.src = fotoperfilObj
@@ -184,13 +204,25 @@ editar.addEventListener("click",()=>{
             break
         }
         imgPerfil.src = novoAvatar
-        sessionStorage.setItem("usuarioperfil", JSON.stringify(novoAvatar))
+
+        //salvando avatar no session storage
+        let objLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+        let usuarioKey = sessionStorage.getItem("usuarioKey");
+         if(usuarioKey && objLogado ){
+          objLogado.avatar = novoAvatar
+          sessionStorage.setItem("usuarioLogado", JSON.stringify(objLogado))
+          localStorage.setItem(usuarioKey, JSON.stringify(objLogado))
+
+         }else{ 
+          console.error("Erro ao atualizar o avatar: usuário ou chave não encontrados.");
+         }
+
     }
     
 )
 sair.addEventListener("click",()=>{
     let sair = confirm("Deseja sair do perfil?") 
     if(sair){
-      sessionStorage.removeItem("usuarioLogado")
+      sessionStorage.clear()
       window.location.href= "index.html"
     }})
