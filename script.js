@@ -77,7 +77,7 @@ function cadastrar(){
         localStorage.setItem("usuario_"+contar, usuarioJSON)
 
         
-      
+        alert("Usuário cadastrado com sucesso!")
         contar++
         localStorage.setItem("contador", contar)
      //limpar campos
