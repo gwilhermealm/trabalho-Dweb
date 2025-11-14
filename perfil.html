@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>seu perfil</title>
+    <title>Seu Perfil</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'MonoLisa', monospace;
 
         }
         body {
-            background-color: #f0f0f0;
+            background-image: url('Fundo.png');
             color: #333;
-            min-height: 100vh;
             background-size: cover;
-            background-position: center top;
+            background-position: center;
+            height: 100vh;
            
         }
         header {
@@ -46,6 +46,13 @@
             text-decoration: underline;
             cursor: pointer;
             margin-bottom: 10px;
+            text-align: left;
+        }
+        #sair {
+            color: red;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-bottom: 20px;
             text-align: right;
         }
         #btn-modo {
@@ -69,22 +76,17 @@
 
 
         <section id="perfil-dados">
-            <p id="editar">editar perfil / sair</p>
+            <p id="editar">Editar Perfil</p>
+            <p id= "sair">Sair</p>
             <!--foto do perfil-->
             <img  src="perfil.png" id="img-perfil" alt="Foto de Perfil" width="150" height="150">
-            <h2 id="perfil-titulo">perfil</h2>
+            <h2 id="perfil-titulo">Perfil</h2>
             <p><strong>Email:</strong> <span id="perfil-email"></span></p>
-            <p><strong>idade:</strong> <span id="perfil-idade"></span></p>
+            <p><strong>Idade:</strong> <span id="perfil-idade"></span></p>
           
         </section>
     </main>
 
-
-
-
-
-
-
     <script src="script.js"></script>
-</body>
+</body> 
 </html>
